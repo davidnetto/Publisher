@@ -1,9 +1,9 @@
 const express = require('express');
 const os = require('os');
 const bodyParser = require('body-parser')
-const userRouter = require('./routers/user')
-const { server } = require('./config/constants')
-require('./config/db')
+const dotenv = require('dotenv');
+dotenv.config();
+const publisherRouter = require("./routers/publisher")
 
 const app = express();
 
@@ -13,8 +13,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-app.use(userRouter)
-app.use(express.static('dist'));
-app.get('/api/getUsername', (req, res) => res.send({ username: os.userInfo().username }));
+app.use(publisherRouter)
 
-app.listen(server.port, () => console.log(`Listening on port ${server.port}!`));
+app.use(express.static('dist'));
+
+app.listen(process.env.API_PORT, () => console.log(`Listening on port ${process.env.API_PORT}!`));
