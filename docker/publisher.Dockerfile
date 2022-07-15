@@ -12,6 +12,6 @@ RUN rm -rf dist
 
 RUN npm run build
 
-EXPOSE 80
+EXPOSE 8081
 
 CMD ["npm", "start"]
